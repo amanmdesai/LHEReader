@@ -1,4 +1,4 @@
-# LHE-Parser
+# LHE-Reader
 
 A python script to read Les Houches Event (LHE) files
 
