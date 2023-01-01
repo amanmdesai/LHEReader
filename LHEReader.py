@@ -1,17 +1,10 @@
-# LHE parser file to read MG5 data
-# Parser for XML data
+# LHE READER code to read MG5 LHE output
+
 
 import xml.etree.ElementTree as ET
-import ROOT#,sys
-from ROOT import TFile, TTree, std#, gROOT 
+import ROOT
+from ROOT import TFile, TTree, std
 from array import array
-#functions/classes required: 
-# To read XML file
-# To store its data as a list
-# To Define a ROOT Tree 
-# To write a ROOT Tree 
-#  Is it possible to combine steps and reduce time?
-
 
 
 def read_xml(filename="unweighted_events.lhe"):
@@ -36,16 +29,12 @@ def build_TTree(data):
     m_file = TFile.Open("lhe.root","recreate")
     m_tree = TTree("lhedata","lhedata")
 
-
-
     m_Npart = array('i',[0])
     m_eventweight = array('f',[0.0])
     m_scale = array('f',[0.0])
     m_qed = array('f',[0.0])
     m_qcd = array('f',[0.0])
  
-
-
     #define particle-level variables
     m_pid = std.vector('int')()
     m_status = std.vector('int')()
@@ -131,9 +120,7 @@ def build_TTree(data):
         m_tau.clear()
         m_spin.clear()
 
-        #m_Npart=1
 
-    #m_tree.Write("", ROOT.TObject.kOverwrite);
     m_file.Write("", TFile.kOverwrite)
     m_file.Close()
     print(k)
