@@ -54,11 +54,14 @@ def build_TTree(data, outputname):
     m_spin = std.vector("float")()
 
     # define tree branches
+    #event level
     m_tree.Branch("numParticles", m_Npart, "numParticles/I")
     m_tree.Branch("eventweight", m_eventweight, "eventweight/F")
     m_tree.Branch("scale", m_scale, "scale/F")
     m_tree.Branch("alpha_qed", m_qed, "alpha_qed/F")
     m_tree.Branch("alpha_qcd", m_qcd, "alpha_qcd/F")
+
+    #particle level
 
     m_tree.Branch("pid", m_pid)
     m_tree.Branch("status", m_status)
@@ -75,7 +78,7 @@ def build_TTree(data, outputname):
     m_tree.Branch("tau", m_tau)
     m_tree.Branch("spin", m_spin)
 
-    k = 0
+    k = 0 # 
     for i in range(len(data)):
         m_Npart[0] = int(data[i][0])
         m_eventweight[0] = float(data[i][2])
