@@ -78,17 +78,21 @@ def build_TTree(data, outputname):
     m_tree.Branch("tau", m_tau)
     m_tree.Branch("spin", m_spin)
 
-    k = 0 # 
+    k = 0 #
     for i in range(len(data)):
-        m_Npart[0] = int(data[i][0])
-        m_eventweight[0] = float(data[i][2])
-        m_scale[0] = float(data[i][3])
-        m_qed[0] = float(data[i][4])
-        m_qcd[0] = float(data[i][5])
+        m_Npart[0] = int(data[i][0]) # first entry is number of particles
+        m_eventweight[0] = float(data[i][2]) # 3rd entry is the event weight
+        m_scale[0] = float(data[i][3]) #4th quantity is the scale
+        m_qed[0] = float(data[i][4]) # second last quantity is the alpha qed
+        m_qcd[0] = float(data[i][5]) # last quantity is the alpha qcd
 
-        x, y = 6, 19
+       #57  1    1    2    0    0  0.56758848505954369E+02  0.15347715764111143E+03  0.17433809470933502E+03  0.23931271606038302E+03  0.10000000000000000E+02 0.0000E+00 0.9000E+01
+
+
+        x, y = 6, 19 # 6 as above five are already filled, 19 represents (13 quantities+6 indices)
 
         for j in range(int(data[i][0])):
+            print(int(data[i][x]))
             m_pid.push_back(int(data[i][x]))
             m_status.push_back(int(data[i][x + 1]))
             m_mother1.push_back(int(data[i][x + 2]))
@@ -107,7 +111,7 @@ def build_TTree(data, outputname):
             x, y = y, y + 13
 
         m_tree.Fill()
-        m_pid.clear()
+
         m_pid.clear()
         m_status.clear()
         m_mother1.clear()
