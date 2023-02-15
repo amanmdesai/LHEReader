@@ -5,7 +5,7 @@ import xml.etree.ElementTree as ET
 import ROOT
 from ROOT import TFile, TTree, std
 from array import array
-
+import argparse
 
 def read_xml(filename="unweighted_events.lhe"):
 
@@ -34,7 +34,7 @@ def build_TTree(data):
     m_scale = array('f',[0.0])
     m_qed = array('f',[0.0])
     m_qcd = array('f',[0.0])
- 
+
     #define particle-level variables
     m_pid = std.vector('int')()
     m_status = std.vector('int')()
@@ -49,7 +49,7 @@ def build_TTree(data):
     m_mass = std.vector('float')()
     m_tau = std.vector('float')()
     m_spin = std.vector('float')()
-    
+
     #define tree branches
     m_tree.Branch('numParticles',m_Npart,'numParticles/I')
     m_tree.Branch("eventweight",m_eventweight,"eventweight/F")
@@ -81,9 +81,9 @@ def build_TTree(data):
         m_scale[0] = float(data[i][3])
         m_qed[0] = float(data[i][4])
         m_qcd[0] = float(data[i][5])
-        
+
         x , y = 6, 19
-        
+
         for j in range(int(data[i][0])):
             m_pid.push_back(int(data[i][x]))
             m_status.push_back(int(data[i][x+1]))
@@ -98,12 +98,12 @@ def build_TTree(data):
             m_mass.push_back(float(data[i][x+10]))
             m_tau.push_back(float(data[i][x+11]))
             m_spin.push_back(float(data[i][x+12]))
-     
-            
-            
+
+
+
             k = k + 1
             x, y = y, y  + 13
-        
+
         m_tree.Fill()
         m_pid.clear()
         m_pid.clear()
@@ -124,14 +124,14 @@ def build_TTree(data):
     m_file.Write("", TFile.kOverwrite)
     m_file.Close()
     print(k)
-    return 0 
-
-
-def main():
-    root = read_xml(filename="unweighted_events.lhe")
-    data_collect = read_xml_child(root)
-    build_TTree(data_collect)
     return 0
 
 
-main()
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--file-name', type=str)
+    args = parser.parse_args()
+    root = read_xml(filename=args.file_name)
+    data_collect = read_xml_child(root)
+    build_TTree(data_collect)
