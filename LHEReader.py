@@ -24,9 +24,9 @@ def read_xml_child(root):
     return data_collect
 
 
-def build_TTree(data):
+def build_TTree(data,outputname):
 
-    m_file = TFile.Open("lhe.root","recreate")
+    m_file = TFile.Open(outputname,"recreate")
     m_tree = TTree("lhedata","lhedata")
 
     m_Npart = array('i',[0])
@@ -130,8 +130,9 @@ def build_TTree(data):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--file-name', type=str)
+    parser.add_argument('--input', type=str)
+    parser.add_argument('--output', type=str)
     args = parser.parse_args()
-    root = read_xml(filename=args.file_name)
+    root = read_xml(filename=args.input)
     data_collect = read_xml_child(root)
-    build_TTree(data_collect)
+    build_TTree(data_collect, outputname=args.output)
