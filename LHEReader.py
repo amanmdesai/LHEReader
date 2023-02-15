@@ -127,7 +127,6 @@ def build_TTree(data, outputname):
 
     m_file.Write("", TFile.kOverwrite)
     m_file.Close()
-    print(k)
     return 0
 
 
