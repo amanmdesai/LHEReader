@@ -8,7 +8,7 @@ from array import array
 import argparse
 
 
-def read_xml(filename="unweighted_events.lhe"):
+def read_xml(filename):
 
     tree = ET.parse(filename)
     root = tree.getroot()
@@ -30,7 +30,7 @@ def read_xml_child(root):
 def build_TTree(data, outputname):
 
     m_file = TFile.Open(outputname, "recreate")
-    m_tree = TTree("lhedata", "lhedata")
+    m_tree = TTree("events", "events")
 
     m_Npart = array("i", [0])
     m_eventweight = array("f", [0.0])
