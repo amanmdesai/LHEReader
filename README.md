@@ -12,3 +12,7 @@ The structure of the LHE file is:
 Event Level Info: Number of Particles, Status, event weight, scales, alpha_QED, alpha_QCD
 
 Particle Level Info: PDG id, status, mother1, mother2, color1, color2, px, py, pz, energy, mass, lifetime, spin
+
+
+References: 
+1. http://arxiv.org/abs/hep-ph/0609017
