@@ -92,7 +92,6 @@ def build_TTree(data, outputname):
         x, y = 6, 19 # 6 as above five are already filled, 19 represents (13 quantities+6 indices)
 
         for j in range(int(data[i][0])):
-            print(int(data[i][x]))
             m_pid.push_back(int(data[i][x]))
             m_status.push_back(int(data[i][x + 1]))
             m_mother1.push_back(int(data[i][x + 2]))
