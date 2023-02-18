@@ -22,12 +22,14 @@ git clone https://github.com/amanmdesai/LHEReader.git
 
 ## Usage
 ```code
-usage: LHEReader.py [-h] [--input INPUT] [--output OUTPUT]
+usage: LHEReader [-h] [--input INPUT] [--output OUTPUT]
+
+Converts LHE files to ROOT Trees
 
 options:
   -h, --help       show this help message and exit
-  --input INPUT
-  --output OUTPUT
+  --input INPUT    Input file path and Name
+  --output OUTPUT  Output file path and Name
 ```
 
 where input and output refer to the path of the input and output files respectively
