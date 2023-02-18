@@ -131,9 +131,9 @@ def build_TTree(data, outputname):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--input", type=str)
-    parser.add_argument("--output", type=str)
+    parser = argparse.ArgumentParser(prog = 'LHEReader',description = 'Converts LHE files to ROOT Trees')
+    parser.add_argument("--input", type=str,help='Input file path and Name')
+    parser.add_argument("--output", type=str,help='Output file path and Name')
     args = parser.parse_args()
     root = read_xml(filename=args.input)
     data_collect = read_xml_child(root)
