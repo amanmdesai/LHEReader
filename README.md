@@ -14,5 +14,23 @@ Event Level Info: Number of Particles, Status, event weight, scales, alpha_QED, 
 Particle Level Info: PDG id, status, mother1, mother2, color1, color2, px, py, pz, energy, mass, lifetime, spin
 
 
+## Installation
+
+```code
+git clone https://github.com/amanmdesai/LHEReader.git
+```
+
+## Usage
+```code
+usage: LHEReader.py [-h] [--input INPUT] [--output OUTPUT]
+
+options:
+  -h, --help       show this help message and exit
+  --input INPUT
+  --output OUTPUT
+```
+
+where input and output refer to the path of the input and output files respectively
+
 References: 
 1. http://arxiv.org/abs/hep-ph/0609017
