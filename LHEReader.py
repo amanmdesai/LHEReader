@@ -74,7 +74,6 @@ def build_TTree(data, outputname):
     m_tree.Branch("pz", m_pz)
     m_tree.Branch("energy", m_e)
     m_tree.Branch("mass", m_mass)
-    m_tree.Branch("color1", m_color1)
     m_tree.Branch("tau", m_tau)
     m_tree.Branch("spin", m_spin)
 
@@ -85,9 +84,6 @@ def build_TTree(data, outputname):
         m_scale[0] = float(data[i][3]) #4th quantity is the scale
         m_qed[0] = float(data[i][4]) # second last quantity is the alpha qed
         m_qcd[0] = float(data[i][5]) # last quantity is the alpha qcd
-
-       #57  1    1    2    0    0  0.56758848505954369E+02  0.15347715764111143E+03  0.17433809470933502E+03  0.23931271606038302E+03  0.10000000000000000E+02 0.0000E+00 0.9000E+01
-
 
         x, y = 6, 19 # 6 as above five are already filled, 19 represents (13 quantities+6 indices)
 
