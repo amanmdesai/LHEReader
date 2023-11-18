@@ -1,12 +1,13 @@
 # LHE READER code to read MG5 LHE output
-
+# Author Aman Desai
+# https://github.com/amanmdesai/LHEReader
 
 import xml.etree.ElementTree as ET
 import ROOT
 from ROOT import TFile, TTree, std
 from array import array
 import argparse
-
+import pathlib
 
 def read_xml(filename):
 
@@ -131,6 +132,13 @@ if __name__ == "__main__":
     parser.add_argument("--input", type=str,help='Input file path and Name')
     parser.add_argument("--output", type=str,help='Output file path and Name')
     args = parser.parse_args()
-    root = read_xml(filename=args.input)
-    data_collect = read_xml_child(root)
-    build_TTree(data_collect, outputname=args.output)
+    if pathlib.PurePosixPath(args.input).suffix != ".lhe":
+        print('ONLY .lhe FILES ARE ACCEPTED AS INPUT')
+
+    if pathlib.PurePosixPath(args.output).suffix != ".root":
+        print('ONLY .root FILES ARE ACCEPTED AS OUTPUT')
+
+    if pathlib.PurePosixPath(args.input).suffix == ".lhe" and pathlib.PurePosixPath(args.output).suffix == ".root":
+        root = read_xml(filename=args.input)
+        data_collect = read_xml_child(root)
+        build_TTree(data_collect, outputname=args.output)
