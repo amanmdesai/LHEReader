@@ -21,7 +21,12 @@ git clone https://github.com/amanmdesai/LHEReader.git
 ```
 
 ## Usage
+
+
 ```code
+python LHEReader --input input.lhe --output output.root
+
+
 usage: LHEReader [-h] [--input INPUT] [--output OUTPUT]
 
 Converts LHE files to ROOT Trees
