@@ -24,7 +24,7 @@ git clone https://github.com/amanmdesai/LHEReader.git
 
 
 ```code
-python LHEReader --input input.lhe --output output.root
+python LHEReader.py --input input.lhe --output output.root
 
 
 usage: LHEReader [-h] [--input INPUT] [--output OUTPUT]
