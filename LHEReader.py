@@ -8,12 +8,19 @@ from ROOT import TFile, TTree, std
 from array import array
 import argparse
 import pathlib
+import gzip
 
-def read_xml(filename):
 
-    tree = ET.parse(filename)
-    root = tree.getroot()
-    return root
+
+def read_xml(filename=None, file_object=None):
+    import xml.etree.ElementTree as ET
+
+    if file_object is not None:
+        tree = ET.parse(file_object)
+    else:
+        tree = ET.parse(filename)
+
+    return tree.getroot()
 
 
 def read_xml_child(root):
@@ -132,13 +139,30 @@ if __name__ == "__main__":
     parser.add_argument("--input", type=str,help='Input file path and Name')
     parser.add_argument("--output", type=str,help='Output file path and Name')
     args = parser.parse_args()
-    if pathlib.PurePosixPath(args.input).suffix != ".lhe":
-        print('ONLY .lhe FILES ARE ACCEPTED AS INPUT')
 
-    if pathlib.PurePosixPath(args.output).suffix != ".root":
+    input_path = pathlib.Path(args.input)
+    output_path = pathlib.Path(args.output)
+
+    # Accept .lhe OR .lhe.gz
+    valid_input = (
+        input_path.suffix == ".lhe" or
+        (input_path.suffix == ".gz" and input_path.name.endswith(".lhe.gz"))
+    )
+
+    if not valid_input:
+        print('ONLY .lhe OR .lhe.gz FILES ARE ACCEPTED AS INPUT')
+        exit()
+
+    if output_path.suffix != ".root":
         print('ONLY .root FILES ARE ACCEPTED AS OUTPUT')
+        exit()
 
-    if pathlib.PurePosixPath(args.input).suffix == ".lhe" and pathlib.PurePosixPath(args.output).suffix == ".root":
+    # Handle compressed file
+    if input_path.suffix == ".gz":
+        with gzip.open(input_path, "rt") as f:
+            root = read_xml(file_object=f)
+    else:
         root = read_xml(filename=args.input)
-        data_collect = read_xml_child(root)
-        build_TTree(data_collect, outputname=args.output)
+
+    data_collect = read_xml_child(root)
+    build_TTree(data_collect, outputname=args.output)
