@@ -12,30 +12,17 @@ import gzip
 
 
 
-def read_xml(filename=None, file_object=None):
-    import xml.etree.ElementTree as ET
+def read_event(file_object):
 
-    if file_object is not None:
-        tree = ET.parse(file_object)
-    else:
-        tree = ET.parse(filename)
-
-    return tree.getroot()
-
-
-def read_xml_child(root):
-    data_collect = []
-    for child in root:
-        if (
-            child.tag != "event"
-        ):  # for the moment storing only event data and no subchilds or other info
+    for _, elem in ET.iterparse(file_object, events=("end",)):
+        if elem.tag != "event":
             continue
-        data = child.text.split()
-        data_collect.append(data)
-    return data_collect
+        text = elem.text or ""
+        yield text.split()
+        elem.clear()
 
 
-def build_TTree(data, outputname):
+def build_TTree(event_iter, outputname):
 
     m_file = TFile.Open(outputname, "recreate")
     m_tree = TTree("events", "events")
@@ -86,29 +73,34 @@ def build_TTree(data, outputname):
     m_tree.Branch("spin", m_spin)
 
     k = 0 #
-    for i in range(len(data)):
-        m_Npart[0] = int(data[i][0]) # first entry is number of particles
-        m_eventweight[0] = float(data[i][2]) # 3rd entry is the event weight
-        m_scale[0] = float(data[i][3]) #4th quantity is the scale
-        m_qed[0] = float(data[i][4]) # second last quantity is the alpha qed
-        m_qcd[0] = float(data[i][5]) # last quantity is the alpha qcd
+    for data in event_iter:
+        if len(data) < 6:
+            continue
+
+        m_Npart[0] = int(data[0]) # first entry is number of particles
+        m_eventweight[0] = float(data[2]) # 3rd entry is the event weight
+        m_scale[0] = float(data[3]) #4th quantity is the scale
+        m_qed[0] = float(data[4]) # second last quantity is the alpha qed
+        m_qcd[0] = float(data[5]) # last quantity is the alpha qcd
 
         x, y = 6, 19 # 6 as above five are already filled, 19 represents (13 quantities+6 indices)
 
-        for j in range(int(data[i][0])):
-            m_pid.push_back(int(data[i][x]))
-            m_status.push_back(int(data[i][x + 1]))
-            m_mother1.push_back(int(data[i][x + 2]))
-            m_mother2.push_back(int(data[i][x + 3]))
-            m_color1.push_back(int(data[i][x + 4]))
-            m_color2.push_back(int(data[i][x + 5]))
-            m_px.push_back(float(data[i][x + 6]))
-            m_py.push_back(float(data[i][x + 7]))
-            m_pz.push_back(float(data[i][x + 8]))
-            m_e.push_back(float(data[i][x + 9]))
-            m_mass.push_back(float(data[i][x + 10]))
-            m_tau.push_back(float(data[i][x + 11]))
-            m_spin.push_back(float(data[i][x + 12]))
+        for j in range(int(data[0])):
+            if (x + 12) >= len(data):
+                break
+            m_pid.push_back(int(data[x]))
+            m_status.push_back(int(data[x + 1]))
+            m_mother1.push_back(int(data[x + 2]))
+            m_mother2.push_back(int(data[x + 3]))
+            m_color1.push_back(int(data[x + 4]))
+            m_color2.push_back(int(data[x + 5]))
+            m_px.push_back(float(data[x + 6]))
+            m_py.push_back(float(data[x + 7]))
+            m_pz.push_back(float(data[x + 8]))
+            m_e.push_back(float(data[x + 9]))
+            m_mass.push_back(float(data[x + 10]))
+            m_tau.push_back(float(data[x + 11]))
+            m_spin.push_back(float(data[x + 12]))
 
             k = k + 1
             x, y = y, y + 13
@@ -160,9 +152,7 @@ if __name__ == "__main__":
     # Handle compressed file
     if input_path.suffix == ".gz":
         with gzip.open(input_path, "rt") as f:
-            root = read_xml(file_object=f)
+            build_TTree(read_event(f), outputname=args.output)
     else:
-        root = read_xml(filename=args.input)
-
-    data_collect = read_xml_child(root)
-    build_TTree(data_collect, outputname=args.output)
+        with open(args.input, "rt") as f:
+            build_TTree(read_event(f), outputname=args.output)
