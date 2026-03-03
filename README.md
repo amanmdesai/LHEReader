@@ -39,5 +39,17 @@ options:
 
 where input and output refer to the path of the input and output files respectively
 
+## Citation
+
+@article{Desai:2026lst,
+    author = "Desai, Aman",
+    title = "{LHEReader: Simplified Conversion from Les Houches Event Files to ROOT Format}",
+    eprint = "2603.01489",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ph",
+    month = "3",
+    year = "2026"
+}
+
 References: 
 1. http://arxiv.org/abs/hep-ph/0609017
