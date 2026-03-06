@@ -1,11 +1,10 @@
 # LHEReader
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7642763.svg)](https://doi.org/10.5281/zenodo.7642763)
-[![Website]](https://amanmdesai.github.io/LHEReader/)
+[![Website](https://img.shields.io/badge/Website-LHEReader-blue)](https://amanmdesai.github.io/LHEReader/)
+[![arXiv](https://img.shields.io/badge/arXiv-2603.01489-b31b1b.svg)](https://arxiv.org/abs/2603.01489)
 
-A python script to read Les Houches Event (LHE) files
-
-Uses PyROOT to convert the output into a ROOT Tree
+A python script to read Les Houches Event (LHE) files and use PyROOT to convert it into a ROOT Tree
 
 The structure of the LHE file is:
 
@@ -33,11 +32,12 @@ Converts LHE files to ROOT Trees
 
 options:
   -h, --help       show this help message and exit
-  --input INPUT    Input file path and Name
-  --output OUTPUT  Output file path and Name
+  --input INPUT    Input file path and Name (can be .lhe or .lhe.gz)
+  --output OUTPUT  Output file path and Name (.root file)
 ```
 
 where input and output refer to the path of the input and output files respectively
+
 
 ## Citation
 
