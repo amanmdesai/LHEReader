@@ -39,6 +39,14 @@ options:
 where input and output refer to the path of the input and output files respectively
 
 
+## EventLoop (Example)
+
+The `EventLoop/` directory contains an example ROOT C++ macro (`EventLoop.cpp`) demonstrating how to read the ROOT TTree produced by `LHEReader.py` and apply event selection to produce histograms and plots.
+
+```code
+root -l -q EventLoop.cpp
+```
+
 ## Citation
 
 @article{Desai:2026lst,

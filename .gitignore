@@ -1,3 +1,4 @@
 *.root
 *.sh
 __pycache__*
+*pdf
