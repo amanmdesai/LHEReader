@@ -457,6 +457,6 @@ void EventLoop(){
                   << " and " << plotDir << "/*.pdf\n";
     };
 
-    processSample("data_files/ma5_zh.root", "plots/reco", "output_histos_reco.root");
-    processSample("data_files/parton_zh.root", "plots/parton", "output_histos_parton.root");
+    processSample("samples/ma5_zh.root", "plots/reco", "output_histos_reco.root");
+    processSample("samples/parton_zh.root", "plots/parton", "output_histos_parton.root");
 }
