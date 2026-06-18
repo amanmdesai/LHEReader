@@ -1,8 +1,11 @@
 # LHEReader
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7642763.svg)](https://doi.org/10.5281/zenodo.7642763)
 [![Website](https://img.shields.io/badge/Website-LHEReader-blue)](https://amanmdesai.github.io/LHEReader/)
+[![Journal DOI](https://img.shields.io/badge/Journal_DOI-10.1088%2F1402--4896%2Fae7772-green.svg)](https://doi.org/10.1088/1402-4896/ae7772)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7642763.svg)](https://doi.org/10.5281/zenodo.7642763)
 [![arXiv](https://img.shields.io/badge/arXiv-2603.01489-b31b1b.svg)](https://arxiv.org/abs/2603.01489)
+
+**Citation:** A. Desai, *LHEReader: simplified conversion from Les Houches event files to ROOT format*, Phys. Scripta **101** (2026) 231501, DOI: 10.1088/1402-4896/ae7772, arXiv:2603.01489.
 
 A python script to read Les Houches Event (LHE) files and use PyROOT to convert it into a ROOT Tree
 
@@ -51,13 +54,16 @@ root -l -q EventLoop.cpp
 
 @article{Desai:2026lst,
     author = "Desai, Aman",
-    title = "{LHEReader: Simplified Conversion from Les Houches Event Files to ROOT Format}",
+    title = "{LHEREADER: simplified conversion from Les Houches event files to ROOT format}",
     eprint = "2603.01489",
     archivePrefix = "arXiv",
     primaryClass = "hep-ph",
-    month = "3",
+    doi = "10.1088/1402-4896/ae7772",
+    journal = "Phys. Scripta",
+    volume = "101",
+    number = "23",
+    pages = "231501",
     year = "2026"
 }
-
 References: 
 1. http://arxiv.org/abs/hep-ph/0609017
